@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89956BBE1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */; };
+		89DF50601CDD707C00407926 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF505F1CDD707C00407926 /* DatePickerDialog.swift */; };
 		89EC4C0A1CDB941B00878F53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C091CDB941B00878F53 /* AppDelegate.swift */; };
 		89EC4C0C1CDB941B00878F53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C0B1CDB941B00878F53 /* ViewController.swift */; };
 		89EC4C0F1CDB941B00878F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89EC4C0D1CDB941B00878F53 /* Main.storyboard */; };
@@ -15,6 +17,13 @@
 		89EC4C171CDB941B00878F53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89EC4C151CDB941B00878F53 /* LaunchScreen.storyboard */; };
 		89EC4C221CDB941B00878F53 /* native3_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C211CDB941B00878F53 /* native3_0Tests.swift */; };
 		89EC4C2D1CDB941B00878F53 /* native3_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C2C1CDB941B00878F53 /* native3_0UITests.swift */; };
+		89EC4C3D1CDB944E00878F53 /* AddCourseworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */; };
+		89EC4C3F1CDB946000878F53 /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C3E1CDB946000878F53 /* MainTableView.swift */; };
+		89EC4C411CDB94B800878F53 /* CourseworkDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */; };
+		89EC4C461CDB984300878F53 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */; };
+		89EC4C471CDB984300878F53 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C431CDB984300878F53 /* Task.swift */; };
+		89EC4C481CDB984300878F53 /* Coursework+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C441CDB984300878F53 /* Coursework+CoreDataProperties.swift */; };
+		89EC4C491CDB984300878F53 /* Coursework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C451CDB984300878F53 /* Coursework.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseworkTableViewController.swift; sourceTree = "<group>"; };
+		89DF505F1CDD707C00407926 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		89EC4C061CDB941B00878F53 /* native3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = native3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89EC4C091CDB941B00878F53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89EC4C0B1CDB941B00878F53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +60,13 @@
 		89EC4C281CDB941B00878F53 /* native3.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = native3.0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89EC4C2C1CDB941B00878F53 /* native3_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = native3_0UITests.swift; sourceTree = "<group>"; };
 		89EC4C2E1CDB941B00878F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseworkVC.swift; sourceTree = "<group>"; };
+		89EC4C3E1CDB946000878F53 /* MainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableView.swift; sourceTree = "<group>"; };
+		89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseworkDetailVC.swift; sourceTree = "<group>"; };
+		89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		89EC4C431CDB984300878F53 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		89EC4C441CDB984300878F53 /* Coursework+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Coursework+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		89EC4C451CDB984300878F53 /* Coursework.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coursework.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +97,10 @@
 		89EC4BFD1CDB941B00878F53 = {
 			isa = PBXGroup;
 			children = (
+				89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */,
+				89EC4C431CDB984300878F53 /* Task.swift */,
+				89EC4C441CDB984300878F53 /* Coursework+CoreDataProperties.swift */,
+				89EC4C451CDB984300878F53 /* Coursework.swift */,
 				89EC4C081CDB941B00878F53 /* native3.0 */,
 				89EC4C201CDB941B00878F53 /* native3.0Tests */,
 				89EC4C2B1CDB941B00878F53 /* native3.0UITests */,
@@ -106,6 +128,11 @@
 				89EC4C151CDB941B00878F53 /* LaunchScreen.storyboard */,
 				89EC4C181CDB941B00878F53 /* Info.plist */,
 				89EC4C101CDB941B00878F53 /* native3_0.xcdatamodeld */,
+				89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */,
+				89EC4C3E1CDB946000878F53 /* MainTableView.swift */,
+				89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */,
+				89DF505F1CDD707C00407926 /* DatePickerDialog.swift */,
+				89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */,
 			);
 			path = native3.0;
 			sourceTree = "<group>";
@@ -262,9 +289,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89EC4C471CDB984300878F53 /* Task.swift in Sources */,
+				89EC4C3F1CDB946000878F53 /* MainTableView.swift in Sources */,
+				89EC4C481CDB984300878F53 /* Coursework+CoreDataProperties.swift in Sources */,
 				89EC4C121CDB941B00878F53 /* native3_0.xcdatamodeld in Sources */,
+				89DF50601CDD707C00407926 /* DatePickerDialog.swift in Sources */,
+				89956BBE1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift in Sources */,
 				89EC4C0C1CDB941B00878F53 /* ViewController.swift in Sources */,
+				89EC4C491CDB984300878F53 /* Coursework.swift in Sources */,
+				89EC4C411CDB94B800878F53 /* CourseworkDetailVC.swift in Sources */,
+				89EC4C461CDB984300878F53 /* Task+CoreDataProperties.swift in Sources */,
 				89EC4C0A1CDB941B00878F53 /* AppDelegate.swift in Sources */,
+				89EC4C3D1CDB944E00878F53 /* AddCourseworkVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +527,7 @@
 				89EC4C331CDB941B00878F53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89EC4C341CDB941B00878F53 /* Build configuration list for PBXNativeTarget "native3.0Tests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +536,7 @@
 				89EC4C361CDB941B00878F53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89EC4C371CDB941B00878F53 /* Build configuration list for PBXNativeTarget "native3.0UITests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +545,7 @@
 				89EC4C391CDB941B00878F53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

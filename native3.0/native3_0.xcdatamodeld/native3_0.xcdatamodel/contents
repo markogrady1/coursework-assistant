@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15A284" minimumToolsVersion="Automatic">
+    <entity name="Coursework" representedClassName=".Coursework" syncable="YES">
+        <attribute name="courseworkName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="markAwarded" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="moduleName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="courseworkToTask" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="taskToCoursework" inverseEntity="Task" syncable="YES"/>
+    </entity>
+    <entity name="Task" representedClassName=".Task" syncable="YES">
+        <attribute name="courseworkName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="lengthOfTime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="taskName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="taskToCoursework" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coursework" inverseName="courseworkToTask" inverseEntity="Coursework" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Coursework" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="Task" positionX="-54" positionY="54" width="128" height="165"/>
+    </elements>
 </model>
