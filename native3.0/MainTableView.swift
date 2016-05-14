@@ -10,28 +10,25 @@ import UIKit
 import CoreData
 
 class MainTableView: UITableViewController {
-    
+    var helper:Helper!
     var courseworks: [Coursework]!
     var appDelegate: AppDelegate!
     var managedObjectContext: NSManagedObjectContext? = nil
     
     override func viewDidLoad() {
-       
+       helper = Helper()
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         managedObjectContext = appDelegate.managedObjectContext
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
         fetchCourseworks()
         self.tableView.reloadData()
         super.viewDidLoad()
-        let appDeleg: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let context: NSManagedObjectContext = appDeleg.managedObjectContext
-        let fetchreq = NSFetchRequest(entityName: "Numbers")
-        
-        //Would I be adding the sort descriptor here?
-        let sortDescriptor = NSSortDescriptor(key: "numbersAttribute", ascending: true)
-//        fetchreq.sortDescriptors = [sortDescriptors]
+        self.navigationItem.title = "Done"
     }
     
+    /**
+     * This function is responsible for obtaining all courseworks from the DB
+     * and placing them into an array
+     **/
     func fetchCourseworks(){
         let courseworkFetchRequest = NSFetchRequest(entityName: "Coursework")
         do {
@@ -40,14 +37,18 @@ class MainTableView: UITableViewController {
             print("Error: \(error)")
         }
     }
-    
+  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showCoursework" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let object = self.courseworks[indexPath.row]
                 let destinationVC = (segue.destinationViewController as UIViewController) as! CourseworkDetailVC
                 destinationVC.coursework = object
+                navigationItem.title = "Courseworks"
             }
+        } else {
+            navigationItem.title = "Done"
+
         }
     }
     
@@ -59,39 +60,92 @@ class MainTableView: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.courseworks.count
+        return self.courseworks.count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        var lbl = ""
+        let cell = tableView.dequeueReusableCellWithIdentifier("CWDisplayTableViewCell", forIndexPath: indexPath) as! CWDisplayTableViewCell
         let object = self.courseworks[indexPath.row] as Coursework
+        if(object.dueDate != nil) {
+            cell.logoLbl.layer.borderColor = helper.hexStringToUIColor("#073FA8").CGColor
+            cell.logoLbl.layer.backgroundColor = helper.hexStringToUIColor("#1178BC").CGColor
+            lbl = getDueDateForLogo(object)
+            cell.logoLbl.text = lbl
+            cell.logoLbl.font = UIFont(name: "system", size:55)
+           
+        } else {
+            lbl = getLabelOutput(object)
+             cell.logoLbl.layer.backgroundColor = helper.hexStringToUIColor("#EDEDED").CGColor
+        }
         self.configureCell(cell, withObject: object)
+        cell.logoLbl.text = lbl
+        cell.courseworkNameLbl.text = object.courseworkName!.capitalizedString
+        cell.moduleNameLbl.text = "Module: " + object.moduleName!.capitalizedString
+        let val = Int(object.level!) + 4
+        cell.levelLbl.text = "Level: \(val)"
         return cell
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let context = self.managedObjectContext
-            context!.deleteObject(self.courseworks[indexPath.row] as Coursework)
-            
+        switch editingStyle {
+        case .Delete:
+                 managedObjectContext!.deleteObject(courseworks[indexPath.row] as NSManagedObject)
+                 /**
+                  * This section of the function searches for any tasks created for
+                  * the deleted coursework. It will then check for any 
+                  * notifications that
+                  * have been created for the given coursework and delete them.
+                  * It will then delete the tasks assigned to the coursework.
+                  **/
+                 let newManagedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+                 let fetchRequest = NSFetchRequest(entityName: "Task")
+                 if let fetchResults = try!newManagedObjectContext.executeFetchRequest(fetchRequest) as? [Task] {
+                    for (var i=0; i < fetchResults.count; i++) {
+                        if fetchResults[i].courseworkName == courseworks[indexPath.row].courseworkName {
+                            
+                            if let notifyArray = UIApplication.sharedApplication().scheduledLocalNotifications {
+                                
+                                // 3. For each notification in the array ...
+                                for notif in notifyArray as [UILocalNotification] {
+                                    // ... try to cast the notification to the dictionary object
+                                    if let info = notif.userInfo as? [String: String] {
+                                        
+                                        // 4. If the dictionary object ID is equal to the string you passed in ...
+                                        if info["TaskID"] == fetchResults[i].taskName {
+                                            print("Notification located and deleted")
+                                            
+                                            // ... cancel the current notification
+                                            UIApplication.sharedApplication().cancelLocalNotification(notif)
+                                        }
+                                    }
+                                }
+                            }
+                            //delete the task assigned to deleted coursework.
+                            newManagedObjectContext.deleteObject(fetchResults[i])
+                            
+                        }
+                    }
+                    try!newManagedObjectContext.save()
+                 }
+
+            courseworks.removeAtIndex(indexPath.row)
             do {
-                try context!.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                //print("Unresolved error \(error), \(error.userInfo)")
+                try  managedObjectContext!.save()
+                           } catch {
                 abort()
             }
-            self.tableView.reloadData()
+             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        default:
+            return
+            
         }
     }
     
@@ -127,17 +181,44 @@ class MainTableView: UITableViewController {
         self.tableView.endUpdates()
     }
     
+    /**
+     * This function is responsible for returning the first
+     * character from the given string
+     **/
+    func getFirstCharacter(str: String) -> String {
+       return  String(str[str.startIndex.advancedBy(0)])
+    }
+    
+    /**
+     * This function is responsible for returning a string
+     * which contains a single uppercasae character
+     **/
+    func getLabelOutput(cw:Coursework) -> String {
+        let name = cw.courseworkName! as String
+        let charAtIndex = getFirstCharacter(name)
+        let upper = charAtIndex.uppercaseString
+        
+        return upper
+    }
+    
+    /**
+     * This function is responsible for returning the date for 
+     * the table view label
+     **/
+    func getDueDateForLogo(cw:Coursework) -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.timeStyle = .MediumStyle
+        let dateString = formatter.stringFromDate(cw.dueDate!)
+        var strArr = dateString.componentsSeparatedByString(",")
+        strArr = strArr[0].componentsSeparatedByString(" ")
+        let month = String(strArr[0].characters.prefix(3))// get first 3 chars
+       
+        return month + "\n" + strArr[1]
+    }
+
     func configureCell(cell: UITableViewCell, withObject object: Coursework) {
-        cell.textLabel!.text = object.courseworkName
-        
-//        cell.detailTextLabel!.text = "Module: \(object.moduleName!)"
-        
-        
-        let text: NSString = "Module: \(object.moduleName!)"
-        let attributedText: NSMutableAttributedString = NSMutableAttributedString(string: text as String)
-        attributedText.addAttributes([NSFontAttributeName: UIFont.boldSystemFontOfSize(11)], range: NSRange(location: 0, length: 7))
-        
-        cell.detailTextLabel?.attributedText = attributedText
+ 
     }
     
 }

@@ -7,17 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8958022E1CE1631F008E5985 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8958022D1CE1631F008E5985 /* Helper.swift */; };
+		895802301CE1FE75008E5985 /* TaskDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8958022F1CE1FE75008E5985 /* TaskDetailVC.swift */; };
+		8984D69E1CE4EBBD0065B91F /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D69D1CE4EBBD0065B91F /* LandingPage.swift */; };
+		8984D6A01CE67F420065B91F /* CWDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D69F1CE67F420065B91F /* CWDisplay.swift */; };
+		8984D6A21CE6841F0065B91F /* CWDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D6A11CE6841F0065B91F /* CWDisplayTableViewCell.swift */; };
+		8984D6A41CE730460065B91F /* TaskDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D6A31CE730460065B91F /* TaskDisplayTableViewCell.swift */; };
 		89956BBE1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */; };
+		89956BC01CE0F1C900E35C90 /* AddTaskTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89956BBF1CE0F1C900E35C90 /* AddTaskTableVC.swift */; };
 		89DF50601CDD707C00407926 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF505F1CDD707C00407926 /* DatePickerDialog.swift */; };
 		89EC4C0A1CDB941B00878F53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C091CDB941B00878F53 /* AppDelegate.swift */; };
-		89EC4C0C1CDB941B00878F53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C0B1CDB941B00878F53 /* ViewController.swift */; };
 		89EC4C0F1CDB941B00878F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89EC4C0D1CDB941B00878F53 /* Main.storyboard */; };
 		89EC4C121CDB941B00878F53 /* native3_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C101CDB941B00878F53 /* native3_0.xcdatamodeld */; };
 		89EC4C141CDB941B00878F53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89EC4C131CDB941B00878F53 /* Assets.xcassets */; };
 		89EC4C171CDB941B00878F53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89EC4C151CDB941B00878F53 /* LaunchScreen.storyboard */; };
 		89EC4C221CDB941B00878F53 /* native3_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C211CDB941B00878F53 /* native3_0Tests.swift */; };
 		89EC4C2D1CDB941B00878F53 /* native3_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C2C1CDB941B00878F53 /* native3_0UITests.swift */; };
-		89EC4C3D1CDB944E00878F53 /* AddCourseworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */; };
 		89EC4C3F1CDB946000878F53 /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C3E1CDB946000878F53 /* MainTableView.swift */; };
 		89EC4C411CDB94B800878F53 /* CourseworkDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */; };
 		89EC4C461CDB984300878F53 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */; };
@@ -44,11 +49,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8958022D1CE1631F008E5985 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		8958022F1CE1FE75008E5985 /* TaskDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailVC.swift; sourceTree = "<group>"; };
+		8984D69D1CE4EBBD0065B91F /* LandingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
+		8984D69F1CE67F420065B91F /* CWDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWDisplay.swift; sourceTree = "<group>"; };
+		8984D6A11CE6841F0065B91F /* CWDisplayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		8984D6A31CE730460065B91F /* TaskDisplayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDisplayTableViewCell.swift; sourceTree = "<group>"; };
 		89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseworkTableViewController.swift; sourceTree = "<group>"; };
+		89956BBF1CE0F1C900E35C90 /* AddTaskTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableVC.swift; sourceTree = "<group>"; };
 		89DF505F1CDD707C00407926 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
 		89EC4C061CDB941B00878F53 /* native3.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = native3.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89EC4C091CDB941B00878F53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		89EC4C0B1CDB941B00878F53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		89EC4C0E1CDB941B00878F53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89EC4C111CDB941B00878F53 /* native3_0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = native3_0.xcdatamodel; sourceTree = "<group>"; };
 		89EC4C131CDB941B00878F53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +71,6 @@
 		89EC4C281CDB941B00878F53 /* native3.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = native3.0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89EC4C2C1CDB941B00878F53 /* native3_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = native3_0UITests.swift; sourceTree = "<group>"; };
 		89EC4C2E1CDB941B00878F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseworkVC.swift; sourceTree = "<group>"; };
 		89EC4C3E1CDB946000878F53 /* MainTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableView.swift; sourceTree = "<group>"; };
 		89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseworkDetailVC.swift; sourceTree = "<group>"; };
 		89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -97,6 +107,7 @@
 		89EC4BFD1CDB941B00878F53 = {
 			isa = PBXGroup;
 			children = (
+				8984D69F1CE67F420065B91F /* CWDisplay.swift */,
 				89EC4C421CDB984300878F53 /* Task+CoreDataProperties.swift */,
 				89EC4C431CDB984300878F53 /* Task.swift */,
 				89EC4C441CDB984300878F53 /* Coursework+CoreDataProperties.swift */,
@@ -122,17 +133,21 @@
 			isa = PBXGroup;
 			children = (
 				89EC4C091CDB941B00878F53 /* AppDelegate.swift */,
-				89EC4C0B1CDB941B00878F53 /* ViewController.swift */,
 				89EC4C0D1CDB941B00878F53 /* Main.storyboard */,
 				89EC4C131CDB941B00878F53 /* Assets.xcassets */,
 				89EC4C151CDB941B00878F53 /* LaunchScreen.storyboard */,
 				89EC4C181CDB941B00878F53 /* Info.plist */,
 				89EC4C101CDB941B00878F53 /* native3_0.xcdatamodeld */,
-				89EC4C3C1CDB944E00878F53 /* AddCourseworkVC.swift */,
 				89EC4C3E1CDB946000878F53 /* MainTableView.swift */,
 				89EC4C401CDB94B800878F53 /* CourseworkDetailVC.swift */,
+				8984D69D1CE4EBBD0065B91F /* LandingPage.swift */,
 				89DF505F1CDD707C00407926 /* DatePickerDialog.swift */,
 				89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */,
+				89956BBF1CE0F1C900E35C90 /* AddTaskTableVC.swift */,
+				8958022D1CE1631F008E5985 /* Helper.swift */,
+				8958022F1CE1FE75008E5985 /* TaskDetailVC.swift */,
+				8984D6A11CE6841F0065B91F /* CWDisplayTableViewCell.swift */,
+				8984D6A31CE730460065B91F /* TaskDisplayTableViewCell.swift */,
 			);
 			path = native3.0;
 			sourceTree = "<group>";
@@ -289,18 +304,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8984D69E1CE4EBBD0065B91F /* LandingPage.swift in Sources */,
 				89EC4C471CDB984300878F53 /* Task.swift in Sources */,
+				8958022E1CE1631F008E5985 /* Helper.swift in Sources */,
 				89EC4C3F1CDB946000878F53 /* MainTableView.swift in Sources */,
+				8984D6A41CE730460065B91F /* TaskDisplayTableViewCell.swift in Sources */,
 				89EC4C481CDB984300878F53 /* Coursework+CoreDataProperties.swift in Sources */,
 				89EC4C121CDB941B00878F53 /* native3_0.xcdatamodeld in Sources */,
+				895802301CE1FE75008E5985 /* TaskDetailVC.swift in Sources */,
 				89DF50601CDD707C00407926 /* DatePickerDialog.swift in Sources */,
 				89956BBE1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift in Sources */,
-				89EC4C0C1CDB941B00878F53 /* ViewController.swift in Sources */,
 				89EC4C491CDB984300878F53 /* Coursework.swift in Sources */,
+				8984D6A21CE6841F0065B91F /* CWDisplayTableViewCell.swift in Sources */,
+				89956BC01CE0F1C900E35C90 /* AddTaskTableVC.swift in Sources */,
 				89EC4C411CDB94B800878F53 /* CourseworkDetailVC.swift in Sources */,
 				89EC4C461CDB984300878F53 /* Task+CoreDataProperties.swift in Sources */,
 				89EC4C0A1CDB941B00878F53 /* AppDelegate.swift in Sources */,
-				89EC4C3D1CDB944E00878F53 /* AddCourseworkVC.swift in Sources */,
+				8984D6A01CE67F420065B91F /* CWDisplay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

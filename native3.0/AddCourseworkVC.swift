@@ -161,7 +161,7 @@ class AddCourseworkVC: UIViewController {
         }
     }
     override func viewDidLoad() {
-        
+        self.navigationItem.title = "Add Coursework"
         notesTextView!.layer.borderWidth = 1
         notesTextView!.layer.borderColor = UIColor.darkGrayColor().CGColor
         
