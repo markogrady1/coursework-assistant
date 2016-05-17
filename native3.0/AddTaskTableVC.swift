@@ -161,7 +161,7 @@ class AddTaskTableVC: UITableViewController {
             let notification = UILocalNotification()
             notification.fireDate = dueDate
             notification.alertBody = "The \(self.taskNameTxt.text!) task has not been completed on time."
-            notification.alertAction = "Native Notification"
+            notification.alertAction = "Task Notification"
             notification.soundName = UILocalNotificationDefaultSoundName
             notification.userInfo = ["TaskID": self.taskNameTxt.text!]
             UIApplication.sharedApplication().scheduleLocalNotification(notification)

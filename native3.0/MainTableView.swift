@@ -80,6 +80,7 @@ class MainTableView: UITableViewController {
         } else {
             lbl = getLabelOutput(object)
              cell.logoLbl.layer.backgroundColor = helper.hexStringToUIColor("#EDEDED").CGColor
+            cell.logoLbl.layer.borderColor = helper.hexStringToUIColor("#D1D1D1").CGColor
         }
         self.configureCell(cell, withObject: object)
         cell.logoLbl.text = lbl

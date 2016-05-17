@@ -13,7 +13,7 @@ import CoreData
 import EventKit
 
 class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet weak var progress: UIProgressView!
+
     var btn:UIBarButtonItem!
     var startDate:NSDate!
     var dueDate:NSDate!
@@ -27,6 +27,9 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
     var reminderStateOnLoad:Int!
     var coursework: Coursework!
     var task: Task!
+    var overProgress:UIView!
+    var underProgress:UIView!
+    var tasksCountLbl:UILabel!
     @IBOutlet weak var reminderLabel: UIButton!
     @IBOutlet weak var reminderSeg: UISegmentedControl!
     @IBOutlet weak var levelSegment: UISegmentedControl!
@@ -40,20 +43,47 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var courseworkDetailLbl: UITextField!
     @IBOutlet weak var taskTableView: UITableView!
     @IBOutlet weak var notesTextView: UITextView!
+    var percentageState = 0
     var appDelegate: AppDelegate!
     var managedObjectContext: NSManagedObjectContext? = nil
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        reminderStateOnLoad = reminderSeg.selectedSegmentIndex
-        if(dueDateLabel.titleLabel!.text != "Date not set") {
-            dueDateOnLoad = dueDateLabel.titleLabel!.text 
+    func update() {
+        if(countFloat == 100.0) {
+            self.overProgress.layer.borderColor = self.helper.hexStringToUIColor("44AA3A").CGColor
         }
-        progress.setProgress(0, animated: true)
+
+    }
+    override func viewDidDisappear(animated: Bool) {
+        underProgress.removeFromSuperview()
+        overProgress.removeFromSuperview()
+        self.view.addSubview(underProgress)
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        helper = Helper()
+        tasksCountLbl = UILabel(frame: CGRectMake(280, 80, 80, 25))
+        tasksCountLbl.center = CGPointMake(355, 643)
+        tasksCountLbl.textAlignment = NSTextAlignment.Center
+        tasksCountLbl.font = .systemFontOfSize(20)
+        tasksCountLbl.text = "Tasks"
+        tasksCountLbl.textColor = helper.hexStringToUIColor("7F7F7E")
+        tasksCountLbl.lineBreakMode = .ByWordWrapping
+        self.view.addSubview(tasksCountLbl)
+
+        /**
+         * Add the CGRect underline for progressbar
+         **/
+        underProgress = UIView(frame: CGRectMake(150,82,600,7.0))
+        overProgress = UIView(frame: CGRectMake(150,82,600,7.0))
+        underProgress.layer.borderWidth = 6.0
+        underProgress.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.view.addSubview(underProgress)
+
+        reminderStateOnLoad = reminderSeg.selectedSegmentIndex
+      //        progress.setProgress(0, animated: true)
         self.taskTableView.delegate = self
         self.taskTableView.dataSource = self
-        progress.transform = CGAffineTransformMakeScale(1, 3)
+//        progress.transform = CGAffineTransformMakeScale(1, 3)
 
         helper = Helper()
         appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -86,6 +116,10 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
             let dd = coursework.dueDate
             let dateString = formatter.stringFromDate(dd!)
             self.dueDateLabel.setTitle(dateString,forState: UIControlState.Normal)
+                
+                    dueDateOnLoad = dueDateLabel.titleLabel!.text
+               
+
             self.dueDate = coursework.dueDate
         } else {
             self.dueDateLabel.setTitle("No date set",forState: UIControlState.Normal)
@@ -121,43 +155,29 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     override func viewWillAppear(animated: Bool) {
+         NSTimer.scheduledTimerWithTimeInterval(1.8, target: self, selector: "update", userInfo: nil, repeats: false)
+        percentageState = 0
+         let interval = countFloat <= 50 ? 0.1 : 0.01
+        NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "addPercentageText", userInfo: nil, repeats: true)
         fetchTasks()
         self.taskTableView.reloadData()
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        if(dueDateOnLoad != dueDateLabel.titleLabel?.text && reminderSeg.selectedSegmentIndex == 1) {
-            let store:EKEventStore = EKEventStore()
-            store.requestAccessToEntityType(EKEntityType.Event) { (granted, error) -> Void in
-                if let e = error {
-                    print("Error \(e.localizedDescription)")
-                }
-
-                if granted {
-                    print("Calendar access granted")
-
-                    let date : NSDate = NSDate()
-                    let event:EKEvent = EKEvent(eventStore: store)
-                    print("Reminder set for \(date)")
-                    if (self.courseworkDetailLbl.text! != "Add coursework Name" ) {
-                        event.title = self.courseworkDetailLbl.text!
-                    }
-                    event.startDate =  self.dueDate
-                    event.endDate =  self.dueDate
-                    event.allDay = false
-                    event.calendar = store.defaultCalendarForNewEvents
-                    do {
-                        try store.saveEvent(event, span: EKSpan.ThisEvent, commit: true)
-                        
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-
+    
+    func addPercentageText() {
+//        percentageState + percentageState + 1
+        if(percentageState <= Int(countFloat)) {
+            self.percentageValueLbl.text = "\(percentageState++)% Complete:"
         }
+        
     }
+//    override func viewDidAppear(animated: Bool) {
+//        NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: "addPercentageText", userInfo: nil, repeats: true)
+//    }
+
+    override func viewWillDisappear(animated: Bool) {
+           }
  
     /**
      * This function is responsible for returning all tasks from the
@@ -183,20 +203,36 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
             print("Error: \(error)")
         }
         if(total != 0) {
-            progress.setProgress(countFloat/100, animated: true)
+            let val = CGFloat(countFloat)
+            overProgress = UIView(frame: CGRectMake(150,82,0,7.0))
+            overProgress.layer.borderWidth = 6.0
+            overProgress.layer.borderColor = helper.hexStringToUIColor("007AFF").CGColor
+            self.view.addSubview(overProgress)
+            UIView.animateWithDuration(2.0, animations: {
+                self.overProgress.frame = CGRect(x: 150, y: 82, width: 0, height: 7.0)
+                
+                }, completion: { finished in
+                    UIView.animateWithDuration(2.0, animations: {
+                        self.overProgress.frame = CGRect(x: 150, y: 82, width: val*6, height: 7.0)
+                    })
+            })
+            let interval = countFloat <= 50 ? 0.1 : 0.01
+            NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "addPercentageText", userInfo: nil, repeats: true)
+            
+            
             percentageValueLbl.text = "\(Int(countFloat))% Complete:"
             percentageValueLbl.textColor = helper.hexStringToUIColor("#000000")
             percentageValueLbl.font = UIFont.systemFontOfSize(16.0)
         } else {
-            progress.setProgress(0, animated: true)
             percentageValueLbl.text = "0% Complete: "
         }
         if(Int(countFloat!) == 100) {
-         
-            progress.setProgress(100, animated: true)
             percentageValueLbl.text = "\(Int(countFloat))% Complete:"
             percentageValueLbl.textColor = helper.hexStringToUIColor("#34862D")
             percentageValueLbl.font = UIFont.boldSystemFontOfSize(16.0)
+        }
+        if(countFloat == 100.0) {
+         NSTimer.scheduledTimerWithTimeInterval(1.8, target: self, selector: "update", userInfo: nil, repeats: false)
         }
     }
     
@@ -215,7 +251,6 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
 
                 destinationVC.task = object
                  navigationItem.title = self.currentCoursework
-               
             }
         }
     }
@@ -249,7 +284,7 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
             markAwardedTxt.enabled = false
             notesTextView.editable = false
             levelSegment.userInteractionEnabled = false
-            reminderSeg.userInteractionEnabled = true
+            reminderSeg.userInteractionEnabled = false
             notesTextView.backgroundColor = helper.hexStringToUIColor("#FAFAFA")
             
             coursework.reminder = self.reminderSeg.selectedSegmentIndex
@@ -264,7 +299,20 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
                 coursework.dueDate = dueDate
 
             }
+            
+            if(Int(weightTxt.text!) > 100) {
+                weightTxt.text! = "100"
+            } else if (Int(weightTxt.text!) < 0) {
+                weightTxt.text! = "0"
+            }
             coursework.weight = Int(weightTxt.text!)
+            
+            if(Int(markAwardedTxt.text!) > 100) {
+                markAwardedTxt.text! = "100"
+            } else if (Int(markAwardedTxt.text!) < 0) {
+                markAwardedTxt.text! = "0"
+            }
+            
             coursework.markAwarded = Double(markAwardedTxt.text!)
             coursework.notes = self.notesTextView.text
 
@@ -272,6 +320,42 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
                 try managedObjectContext!.save()
             } catch{
                 abort()
+            }
+          
+            if(dueDateOnLoad != dueDateLabel.titleLabel?.text && reminderSeg.selectedSegmentIndex == 1) {
+                print("new reminder condition")
+                dueDateOnLoad = dueDateLabel.titleLabel?.text 
+                let store:EKEventStore = EKEventStore()
+                store.requestAccessToEntityType(EKEntityType.Event) { (granted, error) -> Void in
+                    if let e = error {
+                        print("Error \(e.localizedDescription)")
+                    }
+                    
+                    if granted {
+                        print("Calendar access granted")
+                        
+                        let date : NSDate = NSDate()
+                        let event:EKEvent = EKEvent(eventStore: store)
+                        print("Reminder set for \(date)")
+                        if (self.courseworkDetailLbl.text! != "Add coursework Name" ) {
+                            event.title = self.courseworkDetailLbl.text!
+                        }
+                        event.startDate =  self.dueDate
+                        event.endDate =  self.dueDate
+                        event.allDay = false
+                        event.calendar = store.defaultCalendarForNewEvents
+                        do {
+                            try store.saveEvent(event, span: EKSpan.ThisEvent, commit: true)
+                            
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                
+            } else {
+                print("no new reminder")
+
             }
 
         }
@@ -338,6 +422,7 @@ class CourseworkDetailVC: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         countVal = self.tasks.count
+        tasksCountLbl.text = "Tasks: \(countVal)"
         return self.tasks.count
     }
     

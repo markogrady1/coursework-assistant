@@ -173,6 +173,13 @@ class AddCourseworkTableViewController: UITableViewController {
     
        
         if(self.weightTxt.text != "") {
+            if(Int(self.weightTxt.text!) > 100) {
+                self.weightTxt.text = "100"
+            }
+            
+            if(Int(self.weightTxt.text!) < 0) {
+                self.weightTxt.text = "0"
+            }
             newManagedObject.weight = Int(self.weightTxt.text!)
         } else {
             newManagedObject.weight = 0

@@ -13,6 +13,7 @@
 		8984D6A01CE67F420065B91F /* CWDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D69F1CE67F420065B91F /* CWDisplay.swift */; };
 		8984D6A21CE6841F0065B91F /* CWDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D6A11CE6841F0065B91F /* CWDisplayTableViewCell.swift */; };
 		8984D6A41CE730460065B91F /* TaskDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D6A31CE730460065B91F /* TaskDisplayTableViewCell.swift */; };
+		8984D6A61CE94F190065B91F /* dueDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8984D6A51CE94F190065B91F /* dueDateView.swift */; };
 		89956BBE1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */; };
 		89956BC01CE0F1C900E35C90 /* AddTaskTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89956BBF1CE0F1C900E35C90 /* AddTaskTableVC.swift */; };
 		89DF50601CDD707C00407926 /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DF505F1CDD707C00407926 /* DatePickerDialog.swift */; };
@@ -55,6 +56,7 @@
 		8984D69F1CE67F420065B91F /* CWDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWDisplay.swift; sourceTree = "<group>"; };
 		8984D6A11CE6841F0065B91F /* CWDisplayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CWDisplayTableViewCell.swift; sourceTree = "<group>"; };
 		8984D6A31CE730460065B91F /* TaskDisplayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		8984D6A51CE94F190065B91F /* dueDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dueDateView.swift; sourceTree = "<group>"; };
 		89956BBD1CE0A9C300E35C90 /* AddCourseworkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseworkTableViewController.swift; sourceTree = "<group>"; };
 		89956BBF1CE0F1C900E35C90 /* AddTaskTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskTableVC.swift; sourceTree = "<group>"; };
 		89DF505F1CDD707C00407926 /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerDialog.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				89EC4C091CDB941B00878F53 /* AppDelegate.swift */,
 				89EC4C0D1CDB941B00878F53 /* Main.storyboard */,
+				8984D6A51CE94F190065B91F /* dueDateView.swift */,
 				89EC4C131CDB941B00878F53 /* Assets.xcassets */,
 				89EC4C151CDB941B00878F53 /* LaunchScreen.storyboard */,
 				89EC4C181CDB941B00878F53 /* Info.plist */,
@@ -309,6 +312,7 @@
 				8958022E1CE1631F008E5985 /* Helper.swift in Sources */,
 				89EC4C3F1CDB946000878F53 /* MainTableView.swift in Sources */,
 				8984D6A41CE730460065B91F /* TaskDisplayTableViewCell.swift in Sources */,
+				8984D6A61CE94F190065B91F /* dueDateView.swift in Sources */,
 				89EC4C481CDB984300878F53 /* Coursework+CoreDataProperties.swift in Sources */,
 				89EC4C121CDB941B00878F53 /* native3_0.xcdatamodeld in Sources */,
 				895802301CE1FE75008E5985 /* TaskDetailVC.swift in Sources */,
@@ -462,6 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = native3.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.markogrady.native3-0";
@@ -473,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = native3.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.markogrady.native3-0";

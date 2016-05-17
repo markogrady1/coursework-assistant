@@ -21,7 +21,7 @@ class CWDisplayTableViewCell: UITableViewCell {
     super.awakeFromNib()
         helper = Helper()
         let c = helper.hexStringToUIColor("#D1D1D1")
-        self.logoLbl.layer.borderWidth = 1
+        self.logoLbl.layer.borderWidth = 2
         self.logoLbl.layer.borderColor = c.CGColor
         self.logoLbl.layer.cornerRadius = 43
     }

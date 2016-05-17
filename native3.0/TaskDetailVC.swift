@@ -25,7 +25,11 @@ class TaskDetailVC: UITableViewController {
     var btn:UIBarButtonItem!
     var days:Int!
     var appDelegate: AppDelegate!
-      var managedObjectContext: NSManagedObjectContext? = nil
+    var managedObjectContext: NSManagedObjectContext? = nil
+    var dueDateOnLoad:String!
+    var overProgress:UIView!
+    var underProgress:UIView!
+    var percentageState = 0;
     @IBOutlet weak var redStatusLbl: UILabel!
     @IBOutlet var taskTableView: UITableView!
     @IBOutlet weak var compSlider: UISlider!
@@ -39,9 +43,46 @@ class TaskDetailVC: UITableViewController {
     @IBOutlet weak var reminderSeg: UISegmentedControl!
     @IBOutlet weak var sliderLbl: UILabel!
     @IBOutlet weak var lengthOfTimeTxt: UITextField!
+    var percentageLabel:UILabel!
+//    override func viewDidDisappear(animated: Bool) {
+//        underProgress.removeFromSuperview()
+//        overProgress.removeFromSuperview()
+//        self.view.addSubview(underProgress)
+//    }
+
     
+    override func viewWillAppear(animated: Bool) {
+        NSTimer.scheduledTimerWithTimeInterval(1.8, target: self, selector: "update", userInfo: nil, repeats: false)
+    }
+    
+    func update() {
+        if(compSlider.value == 100.0) {
+            self.overProgress.layer.borderColor = self.helper.hexStringToUIColor("44AA3A").CGColor
+        }
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        percentageLabel = UILabel(frame: CGRectMake(80, 80, 200, 21))
+        percentageLabel.center = CGPointMake(75, 652)
+        percentageLabel.textAlignment = NSTextAlignment.Center
+        percentageLabel.text = "0%"
+        self.view.addSubview(percentageLabel)
+
+        /**
+        * Add the CGRect underline for progressbar
+        **/
+        underProgress = UIView(frame: CGRectMake(150,650,600,7.0))
+        overProgress = UIView(frame: CGRectMake(150,650,600,7.0))
+        underProgress.layer.borderWidth = 6.0
+        underProgress.layer.borderColor = UIColor.lightGrayColor().CGColor
+        self.view.addSubview(underProgress)
+        
+       
+        
         helper = Helper()
         self.navigationItem.title = self.task.taskName
         compSlider.transform = CGAffineTransformMakeScale(1, 1.2);
@@ -71,6 +112,7 @@ class TaskDetailVC: UITableViewController {
             self.dueDateBtn.setTitle(dateString,forState: UIControlState.Normal)
             self.dueDate = task.dueDate
             self.loadingDueDate = dueDate
+            self.dueDateOnLoad = dueDateBtn.titleLabel?.text
         } else {
             self.dueDateBtn.setTitle("No date set",forState: UIControlState.Normal)
         }
@@ -125,6 +167,38 @@ class TaskDetailVC: UITableViewController {
         self.reminderSeg.layer.borderWidth = 1.0;
         self.reminderSeg.layer.shadowOffset = CGSizeMake(0.0, 0.0);
         self.reminderSeg.layer.masksToBounds = true
+        
+        addProgressGraphic()
+        
+
+    }
+    
+    func addProgressGraphic() {
+        
+        let val = CGFloat(compSlider.value)
+        overProgress = UIView(frame: CGRectMake(150,650,0,7.0))
+        overProgress.layer.borderWidth = 6.0
+        overProgress.layer.borderColor = helper.hexStringToUIColor("007AFF").CGColor
+        self.view.addSubview(overProgress)
+        UIView.animateWithDuration(2.0, animations: {
+            self.overProgress.frame = CGRect(x: 150, y: 650, width: 0, height: 7.0)
+            print("lsadjf")
+            }, completion: { finished in
+                UIView.animateWithDuration(2.0, animations: {
+                    self.overProgress.frame = CGRect(x: 150, y: 650, width: val*6, height: 7.0)
+                })
+        })
+        let interval = val <= 50 ? 0.1 : 0.01
+        NSTimer.scheduledTimerWithTimeInterval(interval, target: self, selector: "addPercentageText", userInfo: nil, repeats: true)
+        
+
+    }
+    func addPercentageText() {
+        //        percentageState + percentageState + 1
+        if(percentageState <= Int(compSlider.value)) {
+            self.percentageLabel.text = "\(percentageState++)% Complete:"
+        }
+        
     }
     
     @IBAction func reminderSegChanged(sender: UISegmentedControl) {
@@ -166,6 +240,7 @@ class TaskDetailVC: UITableViewController {
             compSlider.enabled = true
         } else {
             btn.title = "Edit"
+            
             taskNameTxt.enabled = false
             reminderSeg.userInteractionEnabled = false
             notesTextView.editable = false
@@ -216,15 +291,7 @@ class TaskDetailVC: UITableViewController {
                 }
 
             }
-            if(task.completedAmount != 100) {
-                if(task.dueDate != nil) {
-                    if(loadingDueDate != dueDate) {
-                        loadingDueDate = dueDate
-                        checkForExistingNotification()
-                    }
-                }
-            }
-          
+                     
             if(task.completedAmount == 100) {
                 cancelNotification()
                 redStatusLbl.text = "Task Complete"
@@ -237,7 +304,52 @@ class TaskDetailVC: UITableViewController {
             } catch{
                 abort()
             }
+          
+            if dueDateOnLoad != dueDateBtn.titleLabel?.text &&
+                reminderSeg.selectedSegmentIndex == 1 &&
+                compSlider.value != 100 {
+                dueDateOnLoad = dueDateBtn.titleLabel?.text
+                print("new notification condition")
+                let store:EKEventStore = EKEventStore()
+                store.requestAccessToEntityType(EKEntityType.Event) { (granted, error) -> Void in
+                    if let e = error {
+                        print("Error \(e.localizedDescription)")
+                    }
+                    if granted {
+                        print("Calendar access granted")
+                        let date : NSDate = NSDate()
+                        let event:EKEvent = EKEvent(eventStore: store)
+                        print("Reminder for \(date)")
+                        if (self.taskNameTxt.text! != "" ) {
+                            event.title = self.taskNameTxt.text!
+                        }
+                        
+                        event.startDate =  self.dueDate
+                        event.endDate =  self.dueDate
+                        event.allDay = false
+                        event.calendar = store.defaultCalendarForNewEvents
+                        do {
+                            
+                            try store.saveEvent(event, span: EKSpan.ThisEvent, commit: true)
+                            
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                  checkForExistingNotification()
+            } else {
+                print("No new notifications")
+            }
+            NSTimer.scheduledTimerWithTimeInterval(1.8, target: self, selector: "update", userInfo: nil, repeats: false)
+
+            percentageState = 0
+            overProgress.removeFromSuperview()
+            addProgressGraphic()
         }
+        
+        
+
     }
 
     func cancelNotification() {
@@ -304,33 +416,7 @@ class TaskDetailVC: UITableViewController {
     
     func addReminder() {
         if(self.dueDate != nil) {
-            let store:EKEventStore = EKEventStore()
-            store.requestAccessToEntityType(EKEntityType.Event) { (granted, error) -> Void in
-                if let e = error {
-                    print("Error \(e.localizedDescription)")
-                }
-                if granted {
-                    print("Calendar access granted")
-                    let date : NSDate = NSDate()
-                    let event:EKEvent = EKEvent(eventStore: store)
-                    print("Reminder for \(date)")
-                    if (self.taskNameTxt.text! != "" ) {
-                        event.title = self.taskNameTxt.text!
-                    }
-                    
-                    event.startDate =  self.dueDate
-                    event.endDate =  self.dueDate
-                    event.allDay = false
-                    event.calendar = store.defaultCalendarForNewEvents
-                    do {
-                        
-                        try store.saveEvent(event, span: EKSpan.ThisEvent, commit: true)
-                        
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
+            
         }else {
             print("Missing coursework details")
             let alert = UIAlertController(title: "No due date", message: "You need to set the due date to set a reminder", preferredStyle: UIAlertControllerStyle.Alert)
